@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Шпаргалка — Мануал Т-Возврат</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #FFDD2D;
+  --yellow-light: #FFF6CC;
+  --yellow-soft: #FFFBE6;
+  --gray-dark: #333333;
+  --gray-medium: #5A5A5A;
+  --gray-light: #F5F5F5;
+  --accent-blue: #E8F4FD;
+  --accent-blue-border: #B8DCF0;
+  --accent-green: #E8F8E8;
+  --accent-green-border: #A8D8A8;
+  --accent-orange: #FFF3E0;
+  --accent-orange-border: #FFD0A0;
+  --accent-red: #FFF0F0;
+  --accent-red-border: #FFB8B8;
+  --accent-purple: #F3EEFF;
+  --accent-purple-border: #D4C4F0;
+  --accent-teal: #E6F7F7;
+  --accent-teal-border: #A0D8D8;
+  --white: #FFFFFF;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-hover: 0 4px 20px rgba(0,0,0,0.1);
+  --radius: 14px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%);
+  color: var(--gray-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.header {
+  background: var(--yellow);
+  padding: 28px 32px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(255, 221, 45, 0.3);
+}
+
+.header h1 { font-size: 24px; font-weight: 800; color: var(--gray-dark); letter-spacing: -0.5px; }
+.header p { font-size: 13px; color: var(--gray-medium); margin-top: 4px; font-weight: 600; }
+
+.nav {
+  display: flex; gap: 8px; padding: 14px 20px; overflow-x: auto;
+  background: var(--white); border-bottom: 1px solid #E8E8E8;
+  position: sticky; top: 80px; z-index: 99;
+}
+
+.nav-btn {
+  padding: 8px 14px; border: 2px solid #E0E0E0; border-radius: 24px;
+  background: var(--white); font-family: 'Nunito', sans-serif;
+  font-size: 12.5px; font-weight: 700; color: var(--gray-medium);
+  cursor: pointer; white-space: nowrap; transition: all 0.25s ease;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: var(--yellow); border-color: var(--yellow); color: var(--gray-dark); transform: translateY(-1px);
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+
+.section { display: none; animation: fadeIn 0.35s ease; }
+.section.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.section-title {
+  font-size: 22px; font-weight: 800; margin-bottom: 20px;
+  padding-bottom: 10px; border-bottom: 3px solid var(--yellow); display: inline-block;
+}
+
+.card {
+  background: var(--white); border-radius: var(--radius); padding: 20px 22px;
+  margin-bottom: 16px; box-shadow: var(--shadow); border-left: 4px solid var(--yellow);
+  transition: box-shadow 0.25s ease;
+}
+.card:hover { box-shadow: var(--shadow-hover); }
+
+.card-title {
+  font-size: 15px; font-weight: 800; color: var(--gray-dark);
+  margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px;
+}
+.card-title .emoji { flex-shrink: 0; font-size: 18px; }
+
+.procedure {
+  background: var(--accent-blue); border: 1px solid var(--accent-blue-border);
+  border-radius: 10px; padding: 12px 16px; margin: 8px 0;
+  font-size: 13px; font-family: 'Fira Code', monospace; line-height: 1.7; color: #2B6190;
+}
+.procedure-label {
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 1px; color: #5A9AC0; margin-bottom: 4px;
+}
+
+.warning {
+  background: var(--accent-red); border: 1px solid var(--accent-red-border);
+  border-radius: 10px; padding: 12px 16px; margin: 10px 0;
+  font-size: 13px; font-weight: 700; color: #C04040;
+}
+
+.tip {
+  background: var(--accent-green); border: 1px solid var(--accent-green-border);
+  border-radius: 10px; padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #3A7A3A;
+}
+
+.note {
+  background: var(--accent-orange); border: 1px solid var(--accent-orange-border);
+  border-radius: 10px; padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #8B6914;
+}
+
+.transfer-dk {
+  background: var(--accent-purple); border: 1px solid var(--accent-purple-border);
+  border-radius: 10px; padding: 10px 16px; margin: 8px 0;
+  font-size: 13px; font-weight: 700; color: #6B4FA0; text-align: center;
+}
+
+.rule-block {
+  background: var(--yellow-soft); border: 2px solid var(--yellow);
+  border-radius: 10px; padding: 16px 18px; margin: 16px 0;
+  font-size: 13.5px; line-height: 1.7;
+}
+.rule-block strong { color: var(--gray-dark); }
+
+.info-block {
+  background: var(--accent-teal); border: 1px solid var(--accent-teal-border);
+  border-radius: 10px; padding: 14px 18px; margin: 12px 0;
+  font-size: 13px; color: #2B6B6B; line-height: 1.7;
+}
+
+.sub-title {
+  font-size: 17px; font-weight: 800; margin: 24px 0 14px;
+  color: var(--gray-medium); display: flex; align-items: center; gap: 8px;
+}
+
+.situations-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0;
+}
+@media (max-width: 600px) { .situations-grid { grid-template-columns: 1fr; } }
+
+.sit-card {
+  background: var(--white); border: 1px solid #E8E8E8; border-radius: 10px;
+  padding: 12px 14px; font-size: 13px; display: flex; align-items: flex-start; gap: 8px;
+}
+.sit-card .num {
+  background: var(--yellow); color: var(--gray-dark); font-weight: 800;
+  width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 12px; flex-shrink: 0;
+}
+
+.badge {
+  display: inline-block; padding: 2px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700; margin-left: 6px;
+}
+.badge-kk { background: #FFE0E0; color: #B03030; }
+.badge-dk { background: #E0F0FF; color: #3060B0; }
+
+.list-item {
+  padding: 6px 0; font-size: 13px; border-bottom: 1px solid #F0F0F0;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.list-item:last-child { border-bottom: none; }
+.list-item .dot { color: var(--yellow); font-weight: 800; flex-shrink: 0; }
+
+.divider { height: 1px; background: #E8E8E8; margin: 20px 0; }
+.arrow { color: #B0B0B0; margin: 0 2px; }
+
+.channel-link {
+  color: #2B6190; text-decoration: none; border-bottom: 1px dashed #B8DCF0;
+  transition: all 0.2s ease;
+}
+.channel-link:hover { color: #1A4A70; border-bottom-color: #1A4A70; background: #E8F4FD; border-radius: 3px; padding: 0 2px; }
+
+a.inline-link {
+  color: #2B6190; text-decoration: none; border-bottom: 1px dashed #B8DCF0;
+  transition: all 0.2s ease; font-weight: 700;
+}
+a.inline-link:hover { color: #1A4A70; border-bottom-color: #1A4A70; }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 19px; }
+  .card { padding: 16px; }
+  .procedure { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div id="password-screen" style="
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(135deg, #FFDD2D 0%, #FFF6CC 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito', sans-serif;
+">
+  <div style="
+    background: white; border-radius: 20px;
+    padding: 40px 36px; text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    max-width: 360px; width: 90%;
+  ">
+    <div style="font-size: 48px; margin-bottom: 12px;">🔒</div>
+    <h2 style="font-size: 22px; font-weight: 800; color: #333; margin-bottom: 6px;">Шпаргалка Т-Возврат</h2>
+    <p style="font-size: 14px; color: #888; margin-bottom: 24px;">Только для сотрудников</p>
+    <div style="position: relative; margin-bottom: 12px;">
+      <input id="pwd-input" type="password" placeholder="Введите пароль" style="
+        width: 100%; padding: 12px 44px 12px 16px; border: 2px solid #E0E0E0;
+        border-radius: 12px; font-size: 15px; font-family: 'Nunito', sans-serif;
+        outline: none; box-sizing: border-box;
+      " onkeydown="if(event.key==='Enter') checkPassword()">
+      <span id="eye-icon" onclick="togglePassword()" style="
+        position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+        cursor: pointer; font-size: 20px; user-select: none; opacity: 0.4;
+      ">👁️</span>
+    </div>
+    <button onclick="checkPassword()" style="
+      width: 100%; padding: 13px; background: #FFDD2D;
+      border: none; border-radius: 12px; font-size: 16px;
+      font-weight: 800; font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+    ">Войти</button>
+    <p id="pwd-error" style="color: #E05050; font-size: 13px; margin-top: 10px; min-height: 18px;"></p>
+  </div>
+</div>
+
+<script>
+  function togglePassword() {
+    const input = document.getElementById('pwd-input');
+    const icon = document.getElementById('eye-icon');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.style.opacity = '1';
+    } else {
+      input.type = 'password';
+      icon.style.opacity = '0.4';
+    }
+  }
+  function checkPassword() {
+    if (document.getElementById('pwd-input').value === 'tvozvrat2026') {
+      document.getElementById('password-screen').style.display = 'none';
+    } else {
+      document.getElementById('pwd-error').textContent = '❌ Неверный пароль';
+      document.getElementById('pwd-input').value = '';
+      document.getElementById('pwd-input').focus();
+    }
+  }
+  document.getElementById('pwd-input').focus();
+</script>
+
+<div class="header">
+  <h1>📘 Мануал Т-Возврат — Шпаргалка</h1>
+  <p>Всё, что нужно знать для работы в секторе Т-Возврат</p>
+</div>
+
+<div class="nav" id="nav">
+  <button class="nav-btn active" data-section="overview">🗂 Обзор</button>
+  <button class="nav-btn" data-section="sit1">🛒 Возврат за товар</button>
+  <button class="nav-btn" data-section="sit2">🔄 Ошибки переводов</button>
+  <button class="nav-btn" data-section="sit3">🏦 Банк. списания</button>
+  <button class="nav-btn" data-section="sit4">🏧 Банкоматы</button>
+  <button class="nav-btn" data-section="sit5">💸 Долги</button>
+  <button class="nav-btn" data-section="sit6">⚖️ Юр. помощь</button>
+  <button class="nav-btn" data-section="kk">💳 КК</button>
+  <button class="nav-btn" data-section="nuances">⚙️ Общие нюансы</button>
+</div>
+
+<div class="container">
+
+  <!-- ============ ОБЗОР ============ -->
+  <div class="section active" id="overview">
+    <div class="section-title">🗂 Когда помогает Т-Возврат?</div>
+
+    <div class="situations-grid">
+      <div class="sit-card"><div class="num">1</div> Клиент хочет вернуть деньги за товар/услугу</div>
+      <div class="sit-card"><div class="num">2</div> Сбой в банкомате при операции</div>
+      <div class="sit-card"><div class="num">3</div> Ошибка при совершении платежа или перевода</div>
+      <div class="sit-card"><div class="num">4</div> Перевёл деньги мошенникам (по процедуре)</div>
+      <div class="sit-card"><div class="num">5</div> Не отдают деньги, данные в долг</div>
+      <div class="sit-card"><div class="num">6</div> Нужна юридическая помощь для возврата</div>
+    </div>
+
+    <div class="rule-block">
+      <strong>⚡ Важно!</strong> Процедурами из списка пользуемся <strong>только для обработки по Т-Возврату</strong>. Если вопрос не касается Т-Возврата — трансферим.
+    </div>
+
+    <div class="sub-title">📋 Список процедур для работы</div>
+
+    <div class="card">
+      <div style="columns: 2; column-gap: 24px; font-size: 13px; line-height: 2;">
+        <div class="list-item"><span class="dot">1.</span> Возврат денег</div>
+        <div class="list-item"><span class="dot">2.</span> Т-Возврат. Юридическая помощь</div>
+        <div class="list-item"><span class="dot">3.</span> Т-Возврат. Услуга возврата долга</div>
+        <div class="list-item"><span class="dot">4.</span> ПиП</div>
+        <div class="list-item"><span class="dot">5.</span> Что с обращением</div>
+        <div class="list-item"><span class="dot">6.</span> Жалоба на сотрудника</div>
+        <div class="list-item"><span class="dot">7.</span> ЛОГ ДО</div>
+        <div class="list-item"><span class="dot">8.</span> Не согласен с банк. списаниями</div>
+        <div class="list-item"><span class="dot">9.</span> Блокировка карты</div>
+        <div class="list-item"><span class="dot">10.</span> Подозрение на мошенничество</div>
+        <div class="list-item"><span class="dot">11.</span> Удалить сообщение в чате</div>
+        <div class="list-item"><span class="dot">12.</span> Хулиганское обращение</div>
+        <div class="list-item"><span class="dot">13.</span> Подписки и сервисы</div>
+        <div class="list-item"><span class="dot">14.</span> Умная камера и QR</div>
+        <div class="list-item"><span class="dot">15.</span> Сервисы защиты</div>
+        <div class="list-item"><span class="dot">16.</span> СТОП лист транспортной компании</div>
+        <div class="list-item"><span class="dot">17.</span> Оповещения об операциях</div>
+        <div class="list-item"><span class="dot">18.</span> Не получилось снять наличные</div>
+        <div class="list-item"><span class="dot">19.</span> Претензия на работу роботов</div>
+        <div class="list-item"><span class="dot">20.</span> Подписки СБП и СБПэй</div>
+        <div class="list-item"><span class="dot">21.</span> История изменений услуг</div>
+        <div class="list-item"><span class="dot">22.</span> 3D Secure</div>
+        <div class="list-item"><span class="dot">23.</span> Дизайны карт</div>
+        <div class="list-item"><span class="dot">24.</span> Перевыпуск карты</div>
+        <div class="list-item"><span class="dot">25.</span> Консультация по T-Pay</div>
+        <div class="list-item"><span class="dot">26.</span> Активация списаний по подпискам</div>
+        <div class="list-item"><span class="dot">27.</span> Отмена подписок на внешние сервисы</div>
+      </div>
+    </div>
+
+    <div class="sub-title">💬 Каналы в Тайме</div>
+
+    <div class="card" style="border-left-color: #A8D8A8;">
+      <div class="list-item"><span class="dot">📣</span> <a href="https://time-ops.tbank.ru/dko/channels/t-vozvrat-os-po-protsessuvoprosy" target="_blank" class="channel-link"><strong>Т-Возврат. Новости сектора</strong></a> — обновления/изменения</div>
+      <div class="list-item"><span class="dot">💬</span> <a href="https://time-ops.tbank.ru/dko/channels/os-po-protseduram-reglamentam-sektor-t-vozvrata" target="_blank" class="channel-link"><strong>ОС по процедурам/регламентам</strong></a> — обратная связь</div>
+      <div class="list-item"><span class="dot">🔄</span> <a href="https://time-ops.tbank.ru/dko/channels/obmeny-smenami-sektor-t-vozvrata" target="_blank" class="channel-link"><strong>Обмен сменами Т-Возврат</strong></a> — расписание и отпуск</div>
+      <div class="list-item"><span class="dot">🚨</span> <a href="https://time-ops.tbank.ru/dko/channels/duty_t-vozvrat" target="_blank" class="channel-link"><strong>duty_T-vozvrat</strong></a> — взаимодействие с дежурными</div>
+    </div>
+  </div>
+
+  <!-- ============ СИТУАЦИЯ 1 ============ -->
+  <div class="section" id="sit1">
+    <div class="section-title">🛒 Ситуация 1: Возврат за товар/услугу</div>
+
+    <div class="info-block">
+      Деньги списали, но товар/услуга не получены или не соответствуют заявленному. Договориться с продавцом не вышло. Также: сбой в банкомате при выдаче наличных, двойное списание при оплате.
+    </div>
+
+    <div class="sub-title">📂 Тематики обращений</div>
+    <div class="card">
+      <div class="list-item"><span class="dot">•</span> Товар или услуга не предоставлены</div>
+      <div class="list-item"><span class="dot">•</span> Возврат средств не поступил</div>
+      <div class="list-item"><span class="dot">•</span> Оплата другим способом</div>
+      <div class="list-item"><span class="dot">•</span> Многократное списание по одной операции</div>
+      <div class="list-item"><span class="dot">•</span> Списалась неправильная сумма операции</div>
+      <div class="list-item"><span class="dot">•</span> Списания по подпискам или после отмены бронирования</div>
+      <div class="list-item"><span class="dot">•</span> Банкомат не выдал деньги</div>
+    </div>
+
+    <div class="sub-title">🔧 Процедуры</div>
+    <div class="card">
+      <div class="procedure">
+        <div class="procedure-label">📍 Основные процедуры</div>
+        1. <strong>Возврат денег</strong> — основная процедура<br>
+        2. <strong>ЛОГ ДО</strong> — для проверки списаний и возвратов<br>
+        3. <strong>Не получилось снять наличные</strong> — при ошибках в нашем банкомате
+      </div>
+    </div>
+
+    <div class="sub-title">📝 Как работает процедура «Возврат денег»</div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">1️⃣</span> Первый шаг — кто совершил операцию?</div>
+      <div class="tip">✅ Если клиент пишет «я не совершал операцию» — сразу выбирай <strong>«Нет, клиент не совершал операцию или совершил под влиянием мошенников»</strong></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">2️⃣</span> Уточнение срочности</div>
+      <div class="note">📌 При выборе <strong>«Нет»</strong> — карты <strong>заморозятся</strong>.<br>
+        При выборе <strong>«Да»</strong> — карты <strong>заблокируются</strong> и сбросятся привязки/пароли.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">⏰</span> Синяя плашка — ожидание ответа</div>
+      <div class="warning">⚠️ На одном из шагов будет плашка: ждать ответ клиента 5 минут и не закрывать чат. Если за 5 минут не ответил — нажимай «Клиент перестал отвечать».</div>
+    </div>
+
+    <div class="sub-title">🔥 Нестандартные кейсы</div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔔</span> Оспаривание = подписка</div>
+      <div class="warning">🚨 Если это подписка — помимо блокировки карты ОБЯЗАТЕЛЬНО проверяй подписки по <strong>СБП</strong> и <strong>T-Pay</strong>!</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Проверка подписок</div>
+        • СБП: Вопросы по Умной камере и QR<br>
+        • T-Pay: Консультация по T-Pay → ветка подписки по T-Pay
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔁</span> Повторное обращение по уже переданной операции</div>
+      <div class="warning">🚨 Процедура может вести на переключение на ДК — <strong>НЕ переключай!</strong> Самостоятельно запускай процедуру <strong>«Что с обращением»</strong> для дополнения/эскалации.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📲</span> Отключение сторонней подписки</div>
+      <div class="tip">💡 Если процедура говорит клиенту отключить подписку самому — открой процедуру <strong>«Отмена подписок на внешние сервисы»</strong> и расскажи инструкцию.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">💳</span> Перевыпуск карты после блокировки</div>
+      <div class="note">📌 Если процедура ведёт на перевыпуск — перевыпускаем в рамках процедуры «Возврат денег». Пример: «Василий, разблокировать карту не получится. Вы согласны её перевыпустить?»</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🎭</span> Отбивка «перевели мошенники», но не факт</div>
+      <div class="warning">🚨 Мы не можем быть на 100% уверены. На первом шаге «Возврат денег» — <strong>ОБЯЗАТЕЛЬНО спроси у клиента</strong>, сам ли он совершал операцию, и закрой чат с таймером.</div>
+    </div>
+  </div>
+
+  <!-- ============ СИТУАЦИЯ 2 ============ -->
+  <div class="section" id="sit2">
+    <div class="section-title">🔄 Ситуация 2: Ошибка при платеже/переводе</div>
+
+    <div class="info-block">
+      Клиент перевёл не в тот банк / не тому человеку, получателю не поступил платёж/перевод, поступило неизвестное пополнение.
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔧</span> Процедуры</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Основные процедуры</div>
+        1. <strong>Возврат денег</strong> — основная<br>
+        2. <strong>ПиП</strong> — для отмены пополнений
+      </div>
+    </div>
+
+    <div class="sub-title">📋 Процедура ПиП</div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📥</span> Когда использовать ПиП?</div>
+      <div class="tip">💡 Если клиент хочет отменить пополнение / сообщает, что пришло неизвестное пополнение и он ничего не ждал.</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        ПиП <span class="arrow">→</span> Пытался или совершил операцию <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> «Не ждал это пополнение»
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ СИТУАЦИЯ 3 ============ -->
+  <div class="section" id="sit3">
+    <div class="section-title">🏦 Ситуация 3: Банковские списания</div>
+
+    <div class="info-block">
+      Клиент не знает за что списали, утверждает, что не подключал подписку/услугу, не понимает комиссию, списалась плата за партнёрскую подписку или страхование.
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔧</span> Процедуры</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Основные процедуры</div>
+        1. <strong>Не согласен с банковскими списаниями</strong><br>
+        2. <strong>Подписки и сервисы Т-Банка</strong><br>
+        3. <strong>История изменения услуг</strong><br>
+        4. <strong>Сервисы защиты</strong>
+      </div>
+    </div>
+
+    <div class="sub-title">🧭 Алгоритм «Не согласен с банковскими списаниями»</div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">1️⃣</span> «За что списали деньги?» (без просьбы вернуть)</div>
+      <div class="tip">✅ Проверяем по событиям → отвечаем клиенту за что списано → <strong>закрываем</strong>.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">2️⃣</span> «За что списали? Верните!»</div>
+      <div class="tip">✅ Проверяем → отвечаем → <strong>возвращаем</strong> → закрываем.</div>
+      <div class="note">📌 Если после возврата клиент спрашивает о причинах/механике списания (тариф, проценты, подписки) — <strong>переключаем на профильный скилл</strong>.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">3️⃣</span> «Отключите и верните!»</div>
+      <div class="tip">✅ Идём по процедуре «Не согласен с банковскими списаниями» → отключаем → возвращаем → закрываем. Если процедура не вывела на отключение — возвращаем деньги и идём в тематическую процедуру.</div>
+    </div>
+
+    <div class="rule-block">
+      <strong>⚡ ВАЖНО!</strong> Если клиент после объяснения спрашивает <strong>когда и кем было подключено</strong> — мы <strong>не переключаем</strong>, а консультируем самостоятельно (через «Подписки и сервисы Т-Банк» / «История изменения услуг»). Если формулировки в процедуре непонятные — передаём через «Не согласен с банковскими списаниями» → <strong>Будущие списания</strong>.
+    </div>
+
+    <div class="sub-title">🔥 Нестандартные кейсы</div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔓</span> «Отключите подписку и верните деньги»</div>
+      <div class="tip">✅ Отрабатываем полностью сами, <strong>не переключаем</strong> клиента для отключения.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">💰</span> «Верните деньги» (без слов про отключение)</div>
+      <div class="warning">⚠️ Отключаем <strong>только если процедура сама предлагает</strong>, не инициативим. Обязательно предупреждаем, что подписка продолжает действовать и когда спишется следующая плата.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🛡️</span> Оспаривание полиса Т-Страхования</div>
+      <div class="note">📌 Процедура после отключения полиса может не предложить возврат. Если клиент просит возврат — на шаге <strong>«Клиент выражает негатив?»</strong> ответь <strong>ДА</strong> → будет отключение + возврат.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">⏳</span> Списание ещё в обработке</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> <strong>«Будущие списания»</strong> <span class="arrow">→</span> Создаём обращение
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ СИТУАЦИЯ 4 ============ -->
+  <div class="section" id="sit4">
+    <div class="section-title">🏧 Ситуация 4: Сбой в банкомате</div>
+
+    <div class="info-block">
+      Удержаны карты или деньги в нашем банкомате, банкомат выдал другую сумму, клиент забыл деньги в банкомате.
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔧</span> Процедуры</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Основные процедуры</div>
+        1. <strong>Возврат денег</strong><br>
+        2. <strong>Не получилось снять наличные</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ СИТУАЦИЯ 5 ============ -->
+  <div class="section" id="sit5">
+    <div class="section-title">💸 Ситуация 5: Не отдают долг</div>
+
+    <div class="info-block">
+      Клиент дал деньги в долг третьему лицу, и ему их не возвращают. Сервис «Т-Возврат» поможет при соблюдении условий: деньги переведены со счёта Т-Банка, перевод физлицу по СБП / реквизитам / внутри банка, сумма больше 10 000₽, есть подтверждения (скриншоты переписки, расписка, договор займа).
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔧</span> Процедура</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        <strong>Услуга возврат долга клиенту</strong>
+      </div>
+
+      <div class="tip">📝 В услугу входит:<br>
+        • Помощь в составлении досудебной претензии и искового заявления в суд<br>
+        • Консультация по юридическим вопросам, связанным с возвратом долга</div>
+
+      <div class="note">💵 Стоимость: <strong>299 рублей</strong>. Если есть подписка <strong>PRO</strong> — бесплатно.</div>
+    </div>
+  </div>
+
+  <!-- ============ СИТУАЦИЯ 6 ============ -->
+  <div class="section" id="sit6">
+    <div class="section-title">⚖️ Ситуация 6: Юридическая помощь</div>
+
+    <div class="info-block">
+      Помощь в составлении досудебной претензии, инструкция по иску в суд, консультация по ведению спора. Для клиентов Т-Банка: подготовка и направление документов в суд.
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔧</span> Процедура</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        <strong>Т-Возврат. Юридическая помощь</strong>
+      </div>
+    </div>
+
+    <div class="warning">🚨 Предлагать юр. помощь <strong>только при прямом обращении</strong> клиента с просьбой. Проявлять инициативу и рассказывать об услуге <strong>не нужно!</strong></div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📋</span> Важные детали</div>
+      <div class="list-item"><span class="dot">✔</span> Доступна при любых способах оплаты (в т.ч. карта другого банка, наличные)</div>
+      <div class="list-item"><span class="dot">✔</span> Может получить любой совершеннолетний гражданин РФ, даже не клиент банка</div>
+      <div class="list-item"><span class="dot">✔</span> Ответ специалистов — как правило, в течение суток</div>
+    </div>
+  </div>
+
+  <!-- ============ КРЕДИТНЫЕ КАРТЫ ============ -->
+  <div class="section" id="kk">
+    <div class="section-title">💳 Обращения по кредитным картам</div>
+
+    <div class="info-block">
+      Мы обрабатываем обращения не только по ДК, но и по КК.
+    </div>
+
+    <div class="sub-title">📂 Тематики КК</div>
+    <div class="card">
+      <div class="list-item"><span class="dot">•</span> Оспаривание покупок с использованием карты</div>
+      <div class="list-item"><span class="dot">•</span> Оспаривание переводов/платежей в ЛК/МП</div>
+      <div class="list-item"><span class="dot">•</span> Оформленные возвраты</div>
+      <div class="list-item"><span class="dot">•</span> Мошеннические операции</div>
+      <div class="list-item"><span class="dot">•</span> Банковские списания (оповещения, страхование задолженности, проценты, штрафы, обслуживание, перевод баланса, сверхлимит, оформление рассрочки)</div>
+      <div class="list-item"><span class="dot">•</span> Списания по банковским/партнёрским подпискам</div>
+      <div class="list-item"><span class="dot">•</span> Комиссии за снятие наличных и переводы</div>
+      <div class="list-item"><span class="dot">•</span> Комиссия за использование Кубышки</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔧</span> Процедуры</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Основные</div>
+        1. <strong>Возврат денег</strong><br>
+        2. <strong>Не согласен с банковскими списаниями</strong>
+      </div>
+    </div>
+
+    <div class="rule-block">
+      <strong>⚡ ВАЖНО!</strong> Если клиент обращается по списанию от нашего банка — нужно не только вернуть списание, но и <strong>объяснить когда и кем была подключена</strong> услуга/подписка.
+    </div>
+
+    <div class="sub-title">🔥 Нестандартные ситуации по КК</div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">⏱</span> Период охлаждения 48 часов, клиент хочет отменить</div>
+      <div class="transfer-dk">➡️ Переключаем на ФРОД</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔒</span> Безакцептное списание / кредитная блокировка</div>
+      <div class="transfer-dk">➡️ Переключаем на КК/КН/КНП</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">💸</span> Случайно пополнил КК, просит отменить</div>
+      <div class="note">📌 Процедура скажет, что отменить не получится. После решения об отмене, в случае отказа — <strong>переключаем на КК</strong>.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🏺</span> Консультации по Кубышке и Рассрочкам</div>
+      <div class="transfer-dk">➡️ Переключение (временный порядок)</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🛡️</span> Возврат за Страхование задолженности по КК</div>
+      <div class="warning">⚠️ Самостоятельно решение <strong>не принимай</strong> — ориентируйся на решение процедуры. См. <a href="https://twork.tinkoff.ru/workspace/feed/publication?id=68ecec880960a50001cdd44d" target="_blank" class="inline-link">новость</a>.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">💳</span> «Комиссия за рассрочку» — в процедуре нет операции</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> <strong>«Будущие списания»</strong> <span class="arrow">→</span> <strong>«Проценты»</strong> <span class="arrow">→</span> Передаём обращение
+      </div>
+      <div class="note">📌 При прямом вопросе «почему списала» — переключаем на профильный отдел.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📊</span> Возврат списанных процентов/штрафов</div>
+      <div class="tip">✅ Действуем по процедуре «Не согласен с банковскими списаниями». Только при <strong>прямом вопросе о причинах</strong> начисления — переключаем на профильный скилл.</div>
+    </div>
+  </div>
+
+  <!-- ============ ОБЩИЕ НЮАНСЫ ============ -->
+  <div class="section" id="nuances">
+    <div class="section-title">⚙️ Общие нюансы</div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📖</span> Регламент</div>
+      <div class="warning">🚨 Обязательно изучи <a href="https://twork.tinkoff.ru/workspace/knowledge-base/subsection/090a1f5a-e92e-462e-8e32-260d04c4eaf7/article/e711e676-5674-4ef8-a512-6ceb170aca24" target="_blank" class="inline-link">регламент работы в чатах</a> и работай строго по нему.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">👥</span> Дубли в системе</div>
+      <div class="note">📌 Если дубли нужны для решения вопроса по возврату — проверяем возможность их слить. Если не влияют на возврат — сначала решаем вопрос, потом переключаем на ДК для объединения.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">⚠️</span> СИ (специнфо) у клиента</div>
+      <div class="rule-block">Если у клиента есть <strong>СИ — действуем по нему</strong>, даже если процедура «Возврат денег» позволяет оставить обращение.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🚧</span> Заглушки на процедуры</div>
+      <div class="note">📌 Сейчас не стоят заглушки на ненужные процедуры. Даже если на трансфер процедура не ведёт — ты <strong>можешь трансферить</strong>.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">🔐</span> BAML / Обеспечительные меры</div>
+      <div class="transfer-dk">➡️ Не получается снять наличные / отменить перевод / не поступил перевод из-за BAML или обеспечительных мер → переключай на ДК Обслуживание</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📞</span> Клиент просит позвонить по закрытому обращению</div>
+      <div class="transfer-dk">➡️ Трансфер на ДК</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📄</span> Спецподгрузка документов нерезидентов</div>
+      <div class="note">📌 Сначала решаем наш вопрос → потом переключаем на ДК Обслуживание.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📦</span> Оспаривание не с ДК/КК (накоп. счёт, джуниор, вклад…)</div>
+      <div class="note">📌 Трафик с других продуктов пока не забирали — нормально, что процедура трансферит на профильный скилл.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">💬</span> Стандартные вопросы</div>
+      <div class="tip">✅ «Почему операция в обработке?», «Отключите робота», «Оставьте жалобу» — отвечаем <strong>мы сами</strong>. Переключать на ДК не нужно.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="emoji">📋</span> «Какие у меня платные услуги/подписки?»</div>
+      <div class="tip">✅ Рассказываем что подключено у клиента. При потребности — возвращаем. <strong>На ДК или другие отделы не переключаем.</strong></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(btn.dataset.section).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
