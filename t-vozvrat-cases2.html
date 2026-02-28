@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Шпаргалка Т-Возврат</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --yellow: #FFDD2D;
+  --yellow-light: #FFF6CC;
+  --yellow-soft: #FFFBE6;
+  --gray-dark: #333333;
+  --gray-medium: #5A5A5A;
+  --gray-light: #F5F5F5;
+  --accent-blue: #E8F4FD;
+  --accent-blue-border: #B8DCF0;
+  --accent-green: #E8F8E8;
+  --accent-green-border: #A8D8A8;
+  --accent-orange: #FFF3E0;
+  --accent-orange-border: #FFD0A0;
+  --accent-red: #FFF0F0;
+  --accent-red-border: #FFB8B8;
+  --accent-purple: #F3EEFF;
+  --accent-purple-border: #D4C4F0;
+  --white: #FFFFFF;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-hover: 0 4px 20px rgba(0,0,0,0.1);
+  --radius: 14px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%);
+  color: var(--gray-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.header {
+  background: var(--yellow);
+  padding: 28px 32px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(255, 221, 45, 0.3);
+}
+
+.header h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--gray-dark);
+  letter-spacing: -0.5px;
+}
+
+.header p {
+  font-size: 14px;
+  color: var(--gray-medium);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  overflow-x: auto;
+  background: var(--white);
+  border-bottom: 1px solid #E8E8E8;
+  position: sticky;
+  top: 82px;
+  z-index: 99;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  border: 2px solid #E0E0E0;
+  border-radius: 24px;
+  background: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-medium);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--gray-dark);
+  transform: translateY(-1px);
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.section {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--yellow);
+  display: inline-block;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--yellow);
+  transition: box-shadow 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.card-question {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--gray-dark);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-question .emoji {
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.procedure {
+  background: var(--accent-blue);
+  border: 1px solid var(--accent-blue-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 8px 0;
+  font-size: 13px;
+  font-family: 'Fira Code', monospace;
+  line-height: 1.7;
+  color: #2B6190;
+}
+
+.procedure-label {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #5A9AC0;
+  margin-bottom: 4px;
+}
+
+.warning {
+  background: var(--accent-red);
+  border: 1px solid var(--accent-red-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 10px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #C04040;
+}
+
+.tip {
+  background: var(--accent-green);
+  border: 1px solid var(--accent-green-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 10px 0;
+  font-size: 13px;
+  color: #3A7A3A;
+}
+
+.note {
+  background: var(--accent-orange);
+  border: 1px solid var(--accent-orange-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 10px 0;
+  font-size: 13px;
+  color: #8B6914;
+}
+
+.transfer-dk {
+  background: var(--accent-purple);
+  border: 1px solid var(--accent-purple-border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin: 8px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #6B4FA0;
+  text-align: center;
+}
+
+.rule-block {
+  background: var(--yellow-soft);
+  border: 2px solid var(--yellow);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 16px 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+.rule-block strong {
+  color: var(--gray-dark);
+}
+
+.sub-title {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 24px 0 14px;
+  color: var(--gray-medium);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.badge-our { background: var(--yellow-light); color: #8B7000; }
+.badge-other { background: #E8E8E8; color: #666; }
+.badge-priority { background: #FFE0E0; color: #B03030; }
+
+.divider {
+  height: 1px;
+  background: #E8E8E8;
+  margin: 20px 0;
+}
+
+.arrow { color: #B0B0B0; margin: 0 2px; }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 20px; }
+  .card { padding: 16px; }
+  .procedure { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div id="password-screen" style="
+  position: fixed; inset: 0; z-index: 9999;
+  background: linear-gradient(135deg, #FFDD2D 0%, #FFF6CC 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito', sans-serif;
+">
+  <div style="
+    background: white; border-radius: 20px;
+    padding: 40px 36px; text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    max-width: 360px; width: 90%;
+  ">
+    <div style="font-size: 48px; margin-bottom: 12px;">🔒</div>
+    <h2 style="font-size: 22px; font-weight: 800; color: #333; margin-bottom: 6px;">Шпаргалка Т-Возврат</h2>
+    <p style="font-size: 14px; color: #888; margin-bottom: 24px;">Только для сотрудников</p>
+    <div style="position: relative; margin-bottom: 12px;">
+      <input id="pwd-input" type="password" placeholder="Введите пароль" style="
+        width: 100%; padding: 12px 44px 12px 16px; border: 2px solid #E0E0E0;
+        border-radius: 12px; font-size: 15px; font-family: 'Nunito', sans-serif;
+        outline: none; box-sizing: border-box;
+      " onkeydown="if(event.key==='Enter') checkPassword()">
+      <span id="eye-icon" onclick="togglePassword()" style="
+        position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+        cursor: pointer; font-size: 20px; user-select: none; opacity: 0.4;
+      ">👁️</span>
+    </div>
+    <button onclick="checkPassword()" style="
+      width: 100%; padding: 13px; background: #FFDD2D;
+      border: none; border-radius: 12px; font-size: 16px;
+      font-weight: 800; font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+    ">Войти</button>
+    <p id="pwd-error" style="color: #E05050; font-size: 13px; margin-top: 10px; min-height: 18px;"></p>
+  </div>
+</div>
+
+<script>
+  function togglePassword() {
+    const input = document.getElementById('pwd-input');
+    const icon = document.getElementById('eye-icon');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.style.opacity = '1';
+    } else {
+      input.type = 'password';
+      icon.style.opacity = '0.4';
+    }
+  }
+  function checkPassword() {
+    if (document.getElementById('pwd-input').value === 'tvozvrat2026') {
+      document.getElementById('password-screen').style.display = 'none';
+    } else {
+      document.getElementById('pwd-error').textContent = '❌ Неверный пароль';
+      document.getElementById('pwd-input').value = '';
+      document.getElementById('pwd-input').focus();
+    }
+  }
+  document.getElementById('pwd-input').focus();
+</script>
+
+<div class="header">
+  <h1>📋 Шпаргалка Т-Возврат</h1>
+  <p>Мануал по решению вопросов клиентов • Февраль 2026</p>
+</div>
+
+<div class="nav" id="nav">
+  <button class="nav-btn active" data-section="subscriptions">🔔 Подписки</button>
+  <button class="nav-btn" data-section="payments">💸 Платежи и Переводы</button>
+  <button class="nav-btn" data-section="bank-charges">🏦 Банковские списания</button>
+  <button class="nav-btn" data-section="atm">🏧 Банкоматы</button>
+  <button class="nav-btn" data-section="legal">⚖️ Юр. помощь</button>
+</div>
+
+<div class="container">
+
+  <!-- ============ ПОДПИСКИ ============ -->
+  <div class="section active" id="subscriptions">
+    <div class="section-title">🔔 Кейсы по Подпискам</div>
+
+    <div class="rule-block">
+      <strong>⚡ Главное правило:</strong> Не сообщаем клиенту кем и когда была подключена подписка/услуга <strong>без его прямого вопроса</strong>. Если клиент спрашивает «за что списали?» — отвечаем что именно списано и закрываем. Детали даём только по запросу.
+    </div>
+
+    <!-- Кейс 1 -->
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">❓</span>
+        За что списали деньги / я не подключал? <span class="badge badge-our">Наши: Pro/Иви/Start/Premium</span>
+      </div>
+
+      <div class="tip">💡 Если клиент просто спрашивает и не просит возврат — консультируем:</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура (одна подписка)</div>
+        Подписки и сервисы ТБанк <span class="arrow">→</span> Pro/Иви/Start/Premium <span class="arrow">→</span> Консультация <span class="arrow">→</span> История изменений <span class="arrow">→</span> Основные изменения по выбранной подписке <span class="arrow">→</span> Внизу — информация о подключении
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура (несколько подписок)</div>
+        Подписки и сервисы ТБанк <span class="arrow">→</span> Pro/Иви/Start/Premium <span class="arrow">→</span> Консультация <span class="arrow">→</span> История изменений <span class="arrow">→</span> Общий список изменений
+      </div>
+
+      <div class="tip">💰 Если хочет вернуть деньги:</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура возврата</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Банковские начисления по тарифу <span class="arrow">→</span> Pro/Иви/Start/Premium <span class="arrow">→</span> Другое <span class="arrow">→</span> Выбираем операции <span class="arrow">→</span> Проверяем <span class="arrow">→</span> Сверяем с фродом <span class="arrow">→</span> Выбираем ветку до конца
+      </div>
+
+      <div class="warning">🚨 Если клиент просит только возврат, но НЕ упоминает отключение — отключаем только если процедура сама предлагает. Обязательно предупреждаем, что подписка продолжает действовать!</div>
+    </div>
+
+    <!-- Кейс 2 -->
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🔄</span>
+        Отменил подписку на стороннем сервисе, но деньги всё равно списались <span class="badge badge-other">Не наша подписка</span>
+      </div>
+
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Клиент сам совершил операции — ДА <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Списание по подпискам или после отмены бронирования <span class="arrow">→</span> Отключил подписку, но после списались деньги
+      </div>
+      <div class="note">📌 Параллельно проверяем подписки по СБП: Вопросы по Умной камере и QR → Подписки → Спрашиваем нужно ли отключить</div>
+      <div class="note">📌 После возврата: Консультация по T-Pay → Да → Подписки с T-Pay → Хочет отменить подписку</div>
+    </div>
+
+    <!-- Кейс 3 -->
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🚫</span>
+        Верните деньги за окко/геймспорт/купиру — я НЕ подключал <span class="badge badge-other">Не наша подписка</span>
+      </div>
+
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Клиент сам совершил операции — НЕТ <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Далее по процедуре
+      </div>
+      <div class="warning">🚨 НЕ ПРОПУСКАЙ СИНИЕ ПЛАШКИ СВЕРХУ!</div>
+      <div class="note">📌 + Проверяем подписки по СБП и T-Pay (аналогично предыдущему кейсу)</div>
+    </div>
+
+    <!-- Кейс 4 -->
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🔓</span>
+        Вы мне делали запрет на подписку, подключите обратно / снимите запрет
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Активация списаний по подпискам <span class="arrow">→</span> Далее
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ПЛАТЕЖИ И ПЕРЕВОДЫ ============ -->
+  <div class="section" id="payments">
+    <div class="section-title">💸 Кейсы по Платежам и Переводам</div>
+
+    <div class="sub-title">🔍 Оспаривание операций</div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">⏳</span>
+        Перевод ещё в обработке, отмените его!
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Платежи и переводы. Все тематики <span class="arrow">→</span> Пытался или совершил операцию <span class="arrow">→</span> Выбираем операцию и следуем процедуре
+      </div>
+      <div class="warning">⚠️ Обработка операции НЕ влияет на успешность. То, что операция в обработке — не значит, что деньги не ушли из банка!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🔎</span>
+        Мне поступило неизвестное пополнение
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Платежи и переводы. Все тематики <span class="arrow">→</span> Пытался или совершил операцию <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Поступило неизвестное пополнение
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">✏️</span>
+        Ошибся в реквизитах при переводе, нужно отменить
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Да <span class="arrow">→</span> Клиент <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> «Другая причина» (шага может не быть) <span class="arrow">→</span> Сообщаем клиенту
+      </div>
+      <div class="warning">🚨 Если операция в обработке — возврат может не сработать и ВЫВОДИТЬ В ЛИМИТЫ КЛИЕНТА → Трансферим на ДК</div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">📱</span>
+        Платеж на моб. связь не пришёл, отмените
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Да <span class="arrow">→</span> Клиент <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Проверяем возможность отмены
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🙅</span>
+        Я не делал / не совершал этот перевод
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Нет, клиент не совершал операцию <span class="arrow">→</span> Клиент <span class="arrow">→</span> Счёт <span class="arrow">→</span> Выбираем операцию
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">✅</span>
+        Мне перевели деньги, хочу подтвердить отмену / Оплатил гос. пошлину, отмените
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Платежи и переводы. Все тематики <span class="arrow">→</span> Пытался или совершил операцию <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Проверяем возможность отмены
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">↩️</span>
+        Сделал возврат, он не пришёл
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Клиент <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Возврат средств не поступил
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🔀</span>
+        Как отменить перевод между своими счетами? (ДК ↔ КК)
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Клиент <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Перевести деньги <span class="arrow">→</span> «Другая причина»
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">✌️</span>
+        Оплатил дважды в магазине — вернуть первый платёж
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Да <span class="arrow">→</span> Клиент <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Многократное списание
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🔢</span>
+        Хочу узнать ARN / RRN / адрес точки оплаты
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Клиент <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Узнать ARN / RRN / адрес точки оплаты
+      </div>
+    </div>
+
+    <div class="sub-title">📤 Переводы</div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">⏰</span>
+        Перевод не дошёл получателю / Долго в обработке
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Приоритетная процедура</div>
+        Возврат денег <span class="arrow">→</span> Да <span class="arrow">→</span> Клиент <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> «Другая причина» (шага может не быть) <span class="arrow">→</span> Сообщаем клиенту
+      </div>
+      <div class="note">📌 Если процедура выводит только на отмену:<br>
+        Платежи и переводы. Все тематики → Пытался или совершил → Счёт → Операция → Получателю не поступил перевод → Проверяем реквизиты → «Просит решить вопрос»</div>
+      
+      <div class="tip">👥 Если обращается <strong>держатель доп. карты</strong> (владелец счёта — 3-е лицо):<br>
+        • Сам совершил операцию: Возврат денег → Да → Держатель доп. Карты<br>
+        • Не совершал операцию: Возврат денег → Нет → Держатель доп. Карты</div>
+    </div>
+
+    <div class="sub-title">📥 Пополнения</div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">💤</span>
+        Не поступило пополнение от другого человека / организации / пособия
+      </div>
+      <div class="transfer-dk">➡️ Трансферим на ДК</div>
+      <div class="note">📌 Если у клиента <strong>БАМЛ</strong>: Платежи и переводы. Все тематики → Пытался или совершил операцию → Выбираем операцию → Поступило неизвестное пополнение → Скрипт → Переключаем на ДК</div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🔄</span>
+        Клиент из другого банка перевёл в Т-Банк не тому человеку
+      </div>
+      <div class="tip">📝 Сначала уточни: ФИО + дата рождения + номер телефона получателя, которому изначально хотел перевести</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Консультация третьего лица <span class="arrow">→</span> Процедура на нужном контакте <span class="arrow">→</span> Обращается третье лицо <span class="arrow">→</span> Вопросы по переводу/пополнению <span class="arrow">→</span> Ошибка в реквизитах / ошибочный перевод <span class="arrow">→</span> Да
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🏦</span>
+        Клиент из другого банка перевёл в другой банк, но деньги пришли к нам
+      </div>
+      <div class="transfer-dk">➡️ Отправляем клиента в свой банк для отмены</div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">📨</span>
+        Мы запросили возврат у клиента по переводу из другого банка
+      </div>
+      <div class="warning">⚠️ ПИП и Возврат денег НЕ помогут для возврата пополнения из другого банка!</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Банковские начисления по тарифу <span class="arrow">→</span> Клиент просит предоставить льготу <span class="arrow">→</span> Оповещение об операциях <span class="arrow">→</span> Нет <span class="arrow">→</span> Заполняем обращение подробно и передаём коллегам
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ БАНКОВСКИЕ СПИСАНИЯ ============ -->
+  <div class="section" id="bank-charges">
+    <div class="section-title">🏦 Не согласен с банковскими списаниями</div>
+
+    <div class="rule-block">
+      <strong>⚡ Общее правило:</strong> Не сообщаем клиенту кем и когда была подключена подписка/услуга без его прямого вопроса. Сначала отвечаем «что списано», детали — только по запросу. Если просит вернуть — возвращаем.
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🛡️</span>
+        Верните деньги за страхование по КК / Что за услуга?
+      </div>
+      <div class="tip">📝 Вариант 1: Поясни услугу. Не просит компенсацию — не компенсируй<br>
+        Вариант 2: Поясни услугу. Не знает о ней — компенсируй</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура (если просит компенсацию)</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Банковские начисления по тарифу <span class="arrow">→</span> Плата за услугу страхование задолженности
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🔔</span>
+        Верните за оповещения деньги!
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Банковские начисления по тарифу <span class="arrow">→</span> Плата за оповещение об операциях <span class="arrow">→</span> Другое <span class="arrow">→</span> Выбираем операции <span class="arrow">→</span> Проверяем <span class="arrow">→</span> Сверяем с фродом <span class="arrow">→</span> Ветка до конца
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">💳</span>
+        Обещали бесплатную карту, а 2 года списывают за обслуживание!
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Банковские начисления по тарифу <span class="arrow">→</span> Плата за обслуживание <span class="arrow">→</span> Другое <span class="arrow">→</span> Выбираем операции <span class="arrow">→</span> Проверяем <span class="arrow">→</span> Сверяем с фродом <span class="arrow">→</span> Ветка до конца
+      </div>
+      <div class="note">📌 Если хочет узнать подробности о тарифе — переключай на ДК/КК в зависимости от карты</div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🏺</span>
+        Что за комиссия по Кубышке?
+      </div>
+      <div class="tip">📝 Просто спрашивает про условия, без возврата — <strong>переводи на КК!</strong></div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура (если просит вернуть)</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Банковские начисления по тарифу <span class="arrow">→</span> Комиссия за использование Кубышки <span class="arrow">→</span> Другое <span class="arrow">→</span> Выбираем операции <span class="arrow">→</span> Проверяем <span class="arrow">→</span> Сверяем с фродом <span class="arrow">→</span> Ветка до конца
+      </div>
+      <div class="warning">🚨 Если просит вернуть и пояснить откуда/зачем/почему — ВОЗВРАЩАЕМ И ПОТОМ ПЕРЕВОДИМ НА КК!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🎨</span>
+        Выпустил карту с дизайном — списались деньги, верните!
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Банковские начисления по тарифу <span class="arrow">→</span> Плата за выпуск карты (металлическая/стикер/платный дизайн) <span class="arrow">→</span> Другое <span class="arrow">→</span> Выбираем операции <span class="arrow">→</span> Проверяем <span class="arrow">→</span> Сверяем с фродом <span class="arrow">→</span> Ветка до конца
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">📋</span>
+        Списали за полис Т-Страхование, верните! <span class="badge badge-priority">Любая, кроме 199₽</span>
+      </div>
+      <div class="warning">⚠️ Обязательно поясни клиенту что это за страховка!</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Приоритетная процедура</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Банковские начисления по тарифу <span class="arrow">→</span> Плата за полис Т-Страхование <span class="arrow">→</span> «Клиент выражает негатив?» — ДА <span class="arrow">→</span> Отключение + возврат
+      </div>
+      <div class="note">📌 Если в «Не согласен» нет операций:<br>
+        <strong>Ситуация 1</strong> (видит полис): Страхование для клиентов → Выбираем полис → Расторгнуть → Трансферим на страхование<br>
+        <strong>Ситуация 2</strong> (не видит полис): Страхование для клиентов → Далее → Нет/Не может назвать → «Страхование от потери дохода и больничного»</div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">📋</span>
+        Списали за полис Т-Страхование, верните! <span class="badge badge-priority">Страховка 199₽</span>
+      </div>
+      <div class="warning">⚠️ Обязательно поясни клиенту что это за страховка!</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Сервисы защиты <span class="arrow">→</span> Страхование от мошенников <span class="arrow">→</span> Расторгнуть <span class="arrow">→</span> Просит вернуть деньги — «Да» / Только расторгнуть — «Нет»
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">📶</span>
+        Верните деньги за Т-Мобайл
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Не согласен с банковскими списаниями <span class="arrow">→</span> Клиент хочет вернуть за услуги Т-Мобайл <span class="arrow">→</span> Переключаем на Мобайл
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sub-title">🔁 Кейсы на ДК (трансфер)</div>
+
+    <div class="card" style="border-left-color: #D4C4F0;">
+      <div class="card-question">
+        <span class="emoji">😤</span>
+        Слишком долго рассматриваете, потерял деньги — компенсируйте!
+      </div>
+      <div class="transfer-dk">➡️ Трансфери на ДК</div>
+    </div>
+
+    <div class="card" style="border-left-color: #D4C4F0;">
+      <div class="card-question">
+        <span class="emoji">📵</span>
+        Приложение не работало, требую компенсацию / Займите денег
+      </div>
+      <div class="transfer-dk">➡️ Трансфери на ДК</div>
+    </div>
+  </div>
+
+  <!-- ============ БАНКОМАТЫ ============ -->
+  <div class="section" id="atm">
+    <div class="section-title">🏧 Кейсы по Банкоматам и Терминалам</div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">🚫</span>
+        Банкомат не выдал деньги <span class="badge badge-priority">ИМЕННО НАШ БАНКОМАТ</span>
+      </div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Возврат денег <span class="arrow">→</span> Клиент <span class="arrow">→</span> Выбираем операцию <span class="arrow">→</span> Банкомат не выдал деньги
+      </div>
+    </div>
+
+    <div class="card" style="border-left-color: #D4C4F0;">
+      <div class="card-question">
+        <span class="emoji">🏧</span>
+        Пополнял карту другого банка в нашем банкомате — деньги «съел», счёт не пополнил
+      </div>
+      <div class="transfer-dk">➡️ Трансфери на ДК</div>
+    </div>
+
+    <div class="card" style="border-left-color: #D4C4F0;">
+      <div class="card-question">
+        <span class="emoji">💵</span>
+        Пополнил карту на 50 000₽, а пришло 10 000₽
+      </div>
+      <div class="transfer-dk">➡️ Трансфери на ДК</div>
+    </div>
+
+    <div class="card" style="border-left-color: #D4C4F0;">
+      <div class="card-question">
+        <span class="emoji">❌</span>
+        Пополнил через банкомат — деньги не пришли
+      </div>
+      <div class="transfer-dk">➡️ Трансфери на ДК</div>
+    </div>
+  </div>
+
+  <!-- ============ ЮР. ПОМОЩЬ ============ -->
+  <div class="section" id="legal">
+    <div class="section-title">⚖️ Кейсы по Юридической помощи</div>
+
+    <div class="card">
+      <div class="card-question">
+        <span class="emoji">📜</span>
+        Мне нужна юридическая помощь
+      </div>
+      <div class="warning">⚠️ Используй только если клиент прямо просит юридическую помощь!</div>
+      <div class="procedure">
+        <div class="procedure-label">📍 Процедура</div>
+        Бесплатная юридическая помощь Т-Возврат <span class="arrow">→</span> Выбираешь как клиент совершил операцию <span class="arrow">→</span> Фиксируешь
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(btn.dataset.section).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
